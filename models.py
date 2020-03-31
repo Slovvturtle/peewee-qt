@@ -3,35 +3,44 @@ from datetime import date, time
 
 db = SqliteDatabase('cinema.db')
 
+
 class BaseModel(Model):
     class Meta:
         database = db
+
 
 class Director(BaseModel):
     name = CharField(default='John')
     age = IntegerField(default=30)
 
+
 class Studio(BaseModel):
 	title = CharField()
 	budget = IntegerField()
+
 
 class Session(BaseModel):
 	date = DateField(default=date.today)
 	time = TimeField(default=time(16, 00))
 	duration = IntegerField()
 
+
 class Film(BaseModel):
 	title = CharField()
 	genre = CharField()
 	studio = ForeignKeyField(Studio, backref='films')
 	session = ForeignKeyField(Session, backref='film', unique=True)
+	director = ForeignKeyField(Director, backref='films')
+
 
 class Viewer(BaseModel):
 	name = CharField()
 
+
 class Cinema(BaseModel):
 	title = CharField()
 	address = CharField()
+
 
 class ViewerToSession(BaseModel):
     viewer = ForeignKeyField(Viewer, backref='viewer_sessions')
@@ -39,6 +48,7 @@ class ViewerToSession(BaseModel):
 
     class Meta:
         primary_key = CompositeKey('viewer', 'session')
+
 
 class CinemaToFilm(BaseModel):
     cinema = ForeignKeyField(Cinema, backref='cinema_films')
