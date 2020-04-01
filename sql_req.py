@@ -29,9 +29,10 @@ def add_cinema(title, address):
 
 
 if __name__ == '__main__':
-   film = add_film(title='Green Book', genre=' biographical comedy-drama', studio=  'Universal Pictures' , session= time(15, 45) , director= 'Peter Farrelly')
-   director = add_director(name= film.director, age=63)
-   studio = add_studio(title=film.studio, budget=23000000)
-   session = add_session(date=date(2019, 1, 24), time= film.session, duration=2)
+   director = add_director(name= 'Peter Farrelly', age=63)
+   studio = add_studio(title= 'Universal Pictures', budget=23000000)
+   session = add_session(date=date(2019, 1, 24), time= time(15, 45), duration=2)
+   film = add_film(title='Green Book', genre=' biographical comedy-drama', studio= studio.title , session= session.time, director= director.name)
    viewer = add_viewer(name = 'Peter Johnson')
    cinema = add_cinema(title= 'Cinema Village', address = '22 E 12th St, New York')
+   
